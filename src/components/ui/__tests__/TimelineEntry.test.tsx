@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, afterEach, describe, expect, it, vi } from "vitest";
-import type { AdoptionTimelineEntry } from "../../types/adoption";
+// import type { AdoptionTimelineEntry } from "../../types/adoption";
 import { TimelineEntry } from "../TimelineEntry";
 
 const baseEntry: AdoptionTimelineEntry = {
