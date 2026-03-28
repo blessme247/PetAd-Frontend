@@ -46,6 +46,9 @@ function App() {
         <Route path="/adoption/:adoptionId/settlement" element={<SettlementSummaryPage />} />
         <Route path="/adoption/:adoptionId/timeline" element={<AdoptionTimelinePage />} />
 
+        {/* Admin Approvals */}
+        <Route path="/admin/approvals" element={<AdminApprovalQueuePage />} />
+
         {/* Custody Routes */}
         <Route path="/custody/:custodyId/timeline" element={<CustodyTimelinePage />} />
 
@@ -59,7 +62,6 @@ function App() {
       </Route>
     </Routes>
   );
-
 }
 
 export default App;
