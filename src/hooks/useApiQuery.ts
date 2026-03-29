@@ -19,7 +19,7 @@ interface UseApiQueryReturn<T> {
  * - 404 Not Found: Returns isNotFound: true
  */
 export function useApiQuery<T>(
-  key: any[],
+  key: QueryKey,
   fetchFn: () => Promise<T>,
   options?: Omit<UseQueryOptions<T, ApiError>, 'queryKey' | 'queryFn'>
 ): UseApiQueryReturn<T> {
@@ -34,7 +34,7 @@ export function useApiQuery<T>(
   // Handle 401 Unauthorized
   if (status === 401) {
     if (typeof window !== "undefined") {
-      window.location.href = "/login";
+      window.location.assign("/login");
     }
   }
 

@@ -26,7 +26,7 @@ describe('useApiQuery', () => {
         // Reset window.location mock
         Object.defineProperty(window, 'location', {
             configurable: true,
-            value: { ...originalLocation, href: '' },
+            value: { ...originalLocation, assign: vi.fn(), href: '' },
         });
     });
 
@@ -55,7 +55,7 @@ describe('useApiQuery', () => {
 
         await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-        expect(window.location.href).toBe('/login');
+        expect(window.location.assign).toHaveBeenCalledWith('/login');
     });
 
     it('should return isForbidden true for 403', async () => {
