@@ -12,10 +12,10 @@ import { ApproverRow } from "../components/approval/ApproverRow";
 import { useSubmitSignature } from "../hooks/useSubmitSignature";
 import { Loader2 } from "lucide-react";
 import { useEscrowStatus } from "../lib/hooks/useEscrowStatus";
-import { 
-  type EscrowStatus, 
+import {
+  type EscrowStatus,
   type SettlementSummaryPageProps,
-  ON_CHAIN_TO_ESCROW_STATUS 
+  ON_CHAIN_TO_ESCROW_STATUS
 } from "../components/escrow/types";
 
 
@@ -67,9 +67,9 @@ export function SettlementSummaryPage({
   );
 
   const escrowId = propSummary?.escrow.escrowId || adoptionId;
-  const { 
-    data: statusData, 
-    isLoading: statusLoading 
+  const {
+    data: statusData,
+    isLoading: statusLoading
   } = useEscrowStatus(escrowId, { enabled: !!escrowId });
 
   const isLoading = propSummary ? false : hookLoading;
@@ -81,13 +81,13 @@ export function SettlementSummaryPage({
     : propSummary?.escrow.txHash;
 
   const { mutateSubmitSignature, isPending: isSigning } = useSubmitSignature();
-  
+
   const currentUserPublicKey = import.meta.env.VITE_STELLAR_PUBLIC_KEY || "G_MOCK_USER_PUBLIC_KEY";
 
   const approvers = data?.payments.map(p => p.destination) || [];
-  const isEligibleToSign = approvers.includes(currentUserPublicKey) && 
+  const isEligibleToSign = approvers.includes(currentUserPublicKey) &&
     !(statusData?.signatures.some(s => s.signer === currentUserPublicKey));
-  const hasAlreadySigned = approvers.includes(currentUserPublicKey) && 
+  const hasAlreadySigned = approvers.includes(currentUserPublicKey) &&
     !!(statusData?.signatures.some(s => s.signer === currentUserPublicKey));
 
   const handleSign = () => {
@@ -99,8 +99,8 @@ export function SettlementSummaryPage({
   };
 
   const totalAmount = data?.payments.reduce((sum, p) => sum + p.amount, 0) ?? 0;
-  const escrowStatus: EscrowStatus | undefined = propSummary?.status 
-    ? propSummary.status 
+  const escrowStatus: EscrowStatus | undefined = propSummary?.status
+    ? propSummary.status
     : data?.onChainStatus
     ? ON_CHAIN_TO_ESCROW_STATUS[data.onChainStatus]
     : undefined;
@@ -160,7 +160,7 @@ export function SettlementSummaryPage({
                 Settlement Failed
               </h2>
               <p className="text-sm text-red-700 mt-1">
-                {propSummary?.escrow.failureReason || 
+                {propSummary?.escrow.failureReason ||
                  "The payout could not be completed. Please review the transaction and retry."}
               </p>
             </div>
@@ -274,17 +274,17 @@ export function SettlementSummaryPage({
                 {data.payments.map((payment) => (
                   <ApproverRow
                     key={payment.id}
-                    approver={{ 
-                      publicKey: payment.destination, 
-                      name: `Approver (${payment.destination.slice(0, 4)}...${payment.destination.slice(-4)})` 
+                    approver={{
+                      publicKey: payment.destination,
+                      name: `Approver (${payment.destination.slice(0, 4)}...${payment.destination.slice(-4)})`
                     }}
                     signatures={statusData.signatures}
-                    currentUserPublicKey={currentUserPublicKey} 
+                    currentUserPublicKey={currentUserPublicKey}
                   />
                 ))}
               </div>
             )}
-            
+
             {isEligibleToSign && (
               <div className="pt-2">
                 <button

@@ -27,14 +27,14 @@ export function ApproverRow({
       data-testid="approver-row"
     >
       <div className="flex items-center gap-3">
-        <div 
+        <div
           className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
             hasSigned ? "bg-green-100 text-green-600" : "bg-amber-100 text-amber-600"
           }`}
         >
           {hasSigned ? <CheckCircle2 size={20} /> : <Clock size={20} />}
         </div>
-        
+
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-slate-900">
